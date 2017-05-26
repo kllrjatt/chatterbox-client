@@ -3,11 +3,12 @@
 
 <head>
   <meta charset="utf-8">
-  <title>chatterbox</title>
+  <title>Chatter Box Client</title>
   <link rel="stylesheet" href="styles/styles.css">
 
   <!-- dependencies -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
   <script>
     // YOU DO NOT NEED TO EDIT THIS CODE
     if (!/(&|\?)username=/.test(window.location.search)) {
@@ -15,7 +16,7 @@
       if (newSearch !== '' & newSearch !== '?') {
         newSearch += '&';
       }
-      newSearch += 'username=' + (prompt('What is your name?') || 'anonymous');
+      newSearch += 'username=' + (prompt('Enter Username') || 'anonymous');
       window.location.search = newSearch;
     }
   </script>
@@ -26,10 +27,50 @@
 
 <body>
   <div id="main">
-    <h1>chatterbox</h1>
-    <!-- Your HTML goes here! -->
+    <!-- update chat room name -->
+    <h1>HRSF 77-78 Chat-Client</h1>
+    <!--add input field to the page -->
+    <!--add deleteAll button -->
+    <input type="submit" id="deleteall" name="delete" value="Delete All">
+    <!--add getnew messages button -->
+    <input type="submit" id="getnew" name="reload" value="Reload">
+    <form>
+      Enter your message:<br>
+      <input type="text" id="chatbox" name="chatBox" placeholder="Enter your message here!">
+      <!-- add send button -->
+      <input type="submit" id="sendmessage" name="send" value="Send">
+    </form>
+    <div>
+       <!-- add  optiot switch server-->
+      Server:
+      <select id="selectserver">
+         <!-- add server locations-->
+        <option value="HRSF78">HRSF78</option>
+        <option value="HRSF77">HRSF77</option>
+      </select>
+       <!-- add room selector-->
+      Room:
+       <select id="selectroom">
+          <!-- add send button -->
+        <option value="Lobby">Lobby</option>
+        <option value="Funny">Funny</option>
+        <option value="Test Code Here">Test Code</option>
+        <option value="XSS">XSS</option>
+      </select>
+    </div>
+     <!-- add friends -->
+    <div class="friends" id="friends">
+      <h5>Friends List</h5>
+    </div>
+     <!-- add top users -->
+    <div class="topusers" id="topusers">
+      <h5>Top Users</h5>
+    </div>
   </div>
-  <div id="chats"></div>
+   <!-- add display chat messages -->
+  <div id="chats">
+    <h2>Chat Room Messages</h2>
+  </div>
 </body>
 
 </html>
