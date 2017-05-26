@@ -38,6 +38,7 @@ var app = {
       url: app.server,
       type: 'GET',
       contentType: 'application/json',
+      //sort data accroding newest to oldest 
       data: { order: '-createdAt' },
       success: function (data) {
         console.log(data);
