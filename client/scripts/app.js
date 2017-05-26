@@ -32,7 +32,7 @@ var app = {
   },
 
   // write fetch function
-  fetch: function (data) {
+  fetch: function () {
     $.ajax({
       // This is the url you should use to communicate with the parse API server.
       url: app.server,
