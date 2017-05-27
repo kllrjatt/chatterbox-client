@@ -3,6 +3,8 @@ $(document).ready(function () {
   app.init();
 });
 
+var chattingUser = window.location.search.slice(10).split('%20').join(' ');
+
 var app = {
   // ad server address for HRSF 77 and 78
   // use server for now ... for 77 
@@ -26,7 +28,6 @@ var app = {
       contentType: 'application/json',
       // onsend console log data
       success: function (data) {
-        app.fetch();
         console.log('chatterbox: Message sent');
       },
       error: function (data) {
@@ -76,6 +77,14 @@ var app = {
   },
 
   handleSubmit: function () {
+    var message = {
+      username: chattingUser,
+      text: $('#chatbox').val(),
+      room: $('select#roomSelect option:checked').val()
+    };
+
+    this.send(message);
+    this.fetch();
 
   },
 
@@ -112,4 +121,4 @@ var app = {
   }
 };
 
-setInterval(app.fetch, 5000);
+// setInterval(app.fetch, 5000);
