@@ -48,7 +48,6 @@ var app = {
       //sort data accroding newest to oldest 
       data: { order: '-createdAt' },
       success: function (data) {
-        console.log(data);
         for (var i = 0; i < data.results.length; i++) {
           app.renderMessage(data.results[i]);
         }
@@ -65,7 +64,7 @@ var app = {
   },
 
   renderMessage: function (message) {
-    $('#chats').append('<div class="chatMessages">' + message.username + ' : ' + message.text + '</div>');
+    $('#chats').append('<div class="chatMessages">' + message.username + ' : ' + message.text + ' in ' + message.room + '</div>');
   },
 
   renderRoom: function (message, room) {
@@ -121,4 +120,4 @@ var app = {
   }
 };
 
-// setInterval(app.fetch, 5000);
+setInterval(app.fetch, 3000);
