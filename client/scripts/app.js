@@ -44,7 +44,6 @@ var app = {
         console.error('chatterbox: Failed to send message', message);
       }
     });
-    event.preventDefault();
   },
 
   // write fetch function
@@ -105,15 +104,17 @@ var app = {
   },
 
   handleSubmit: function (event) {
+    event.preventDefault();
     var message = {
       username: chattingUser,
       text: currentMessage(),
       roomname: currentRoom()
     };
-    this.send(message);
-    this.clearMessages();
-    this.fetch();
+    app.send(message);
+    app.clearMessages();
+    app.fetch();
     $('#chatbox').val('');
+    
   },
 
   removeMessage(obj) {
@@ -151,4 +152,4 @@ var app = {
 
 
 
-// setInterval(app.fetch, 3000);
+ 
