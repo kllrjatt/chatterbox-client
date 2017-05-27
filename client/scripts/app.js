@@ -1,12 +1,17 @@
 //declare app object
 $(document).ready(function () {
+  // intialize the chat window when dom is ready 
   app.init();
 });
 
+
+//find chat user name
+// slice window.location.search
 var chattingUser = window.location.search.slice(10).split('%20').join(' ');
 
+//find current room using selct option checked value
 var currentRoom = function () { return $('select#roomSelect option:checked').val(); };
-
+// find current message using #chatbox value
 var currentMessage = function () { return $('#chatbox').val(); };
 
 var app = {
@@ -39,6 +44,7 @@ var app = {
         console.error('chatterbox: Failed to send message', message);
       }
     });
+    event.preventDefault();
   },
 
   // write fetch function
@@ -48,21 +54,30 @@ var app = {
       url: app.server,
       type: 'GET',
       contentType: 'application/json',
-      //sort data accroding newest to oldest 
+      //sort data accroding newest to oldest  
       data: { order: '-createdAt' },
       success: function (data) {
-        var roomNames = [];
+        //clear messages 
+        app.clearMessages();
+        // have static room anmes
+        var roomNames = ['4chan', 'XSS', 'CW TV Shows'];
+        // itreate through data to render messages on screen
         for (var i = 0; i < data.results.length; i++) {
           app.renderMessage(data.results[i]);
+          // add unique rooms names to the page
           if (roomNames.indexOf(data.results[i].roomname) === -1) {
             roomNames.push(data.results[i].roomname);
           }
         }
-        console.log(roomNames);
+        //iterate through the room area
+        //drop all room naes
+        $('#roomSelect').empty();
+        //sort room names
+        roomNames.sort();
+        //iterate through room names to add them to the dom. 
         for (var j = 0; j < roomNames.length; j++) {
           app.renderRoom(roomNames[j]);
         }
-        console.log(data);
       },
       error: function (data) {
         console.error('chatterbox: Failed to send message', data);
@@ -71,15 +86,17 @@ var app = {
   },
 
   clearMessages: function () {
-    //use jquery to remove items in a given div
+    //use jquery to remove items for a targeted div 
     $('#chats').empty();
   },
 
   renderMessage: function (message) {
+    // use append to add message to dom 
     $('#chats').append('<div class="chatMessages">' + message.username + ' : ' + message.text + ' in ' + message.roomname + '</div>');
   },
 
   renderRoom: function (roomname) {
+    // use append to add new messages 
     $('#roomSelect').append('<option value=' + roomname + '>' + roomname + '</option>');
   },
 
@@ -87,8 +104,7 @@ var app = {
 
   },
 
-  handleSubmit: function () {
-
+  handleSubmit: function (event) {
     var message = {
       username: chattingUser,
       text: currentMessage(),
@@ -132,5 +148,7 @@ var app = {
     });
   }
 };
+
+
 
 // setInterval(app.fetch, 3000);

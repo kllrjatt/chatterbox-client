@@ -30,15 +30,11 @@
     <!-- update chat room name -->
     <h1>HRSF 77-78 Chat-Client</h1>
     <!--add input field to the page -->
-    <!--add deleteAll button -->
-    <input type="submit" id="deleteall" name="delete" value="Delete All">
-    <!--add getnew messages button -->
-    <input type="submit" id="getnew" name="reload" value="Reload">
     <form>
       Enter your message:<br>
       <input type="text" id="chatbox" name="chatBox" placeholder="Enter your message here!">
       <!-- add send button -->
-      <input type="submit" id="sendmessage" name="send" value="Send">
+      <input class="submit" type="submit" id="submit" name="submit">
     </form>
     <div>
       <!-- add  optiot switch server-->
@@ -70,8 +66,7 @@
     </div>
   </div>
   <script>
-    this.app.init();
-    $('#sendmessage').on('click', app.handleSubmit);
+    $('#submit .submit').on('submit', app.handleSubmit)
   </script>
 </body>
 
