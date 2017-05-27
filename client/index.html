@@ -51,11 +51,7 @@
       <!-- add room selector-->
       Room:
       <select id="roomSelect">
-          <!-- add send button -->
-        <option value="Lobby">Lobby</option>
-        <option value="Funny">Funny</option>
-        <option value="Test Code Here">Test Code</option>
-        <option value="XSS">XSS</option>
+          <!-- rooms using renderRooms method -->
       </select>
     </div>
     <!-- add friends -->
@@ -71,7 +67,6 @@
   <div id="messagearea">
     <h2>Chat Room Messages</h2>
     <div id="chats">
-
     </div>
   </div>
   <script>
@@ -79,4 +74,5 @@
     $('#sendmessage').on('click', app.handleSubmit);
   </script>
 </body>
+
 </html>

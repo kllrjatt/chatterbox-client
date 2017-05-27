@@ -5,6 +5,10 @@ $(document).ready(function () {
 
 var chattingUser = window.location.search.slice(10).split('%20').join(' ');
 
+var currentRoom = function () { return $('select#roomSelect option:checked').val(); };
+
+var currentMessage = function () { return $('#chatbox').val(); };
+
 var app = {
   // ad server address for HRSF 77 and 78
   // use server for now ... for 77 
@@ -39,7 +43,6 @@ var app = {
 
   // write fetch function
   fetch: function () {
-    app.clearMessages();
     $.ajax({
       // This is the url you should use to communicate with the parse API server.
       url: app.server,
@@ -48,9 +51,18 @@ var app = {
       //sort data accroding newest to oldest 
       data: { order: '-createdAt' },
       success: function (data) {
+        var roomNames = [];
         for (var i = 0; i < data.results.length; i++) {
           app.renderMessage(data.results[i]);
+          if (roomNames.indexOf(data.results[i].roomname) === -1) {
+            roomNames.push(data.results[i].roomname);
+          }
         }
+        console.log(roomNames);
+        for (var j = 0; j < roomNames.length; j++) {
+          app.renderRoom(roomNames[j]);
+        }
+        console.log(data);
       },
       error: function (data) {
         console.error('chatterbox: Failed to send message', data);
@@ -64,11 +76,11 @@ var app = {
   },
 
   renderMessage: function (message) {
-    $('#chats').append('<div class="chatMessages">' + message.username + ' : ' + message.text + ' in ' + message.room + '</div>');
+    $('#chats').append('<div class="chatMessages">' + message.username + ' : ' + message.text + ' in ' + message.roomname + '</div>');
   },
 
-  renderRoom: function (message, room) {
-
+  renderRoom: function (roomname) {
+    $('#roomSelect').append('<option value=' + roomname + '>' + roomname + '</option>');
   },
 
   handleUsernameClick: function () {
@@ -76,15 +88,16 @@ var app = {
   },
 
   handleSubmit: function () {
+
     var message = {
       username: chattingUser,
-      text: $('#chatbox').val(),
-      room: $('select#roomSelect option:checked').val()
+      text: currentMessage(),
+      roomname: currentRoom()
     };
-
     this.send(message);
+    this.clearMessages();
     this.fetch();
-
+    $('#chatbox').val('');
   },
 
   removeMessage(obj) {
@@ -120,4 +133,4 @@ var app = {
   }
 };
 
-setInterval(app.fetch, 3000);
+// setInterval(app.fetch, 3000);
