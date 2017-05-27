@@ -41,16 +41,16 @@
       <input type="submit" id="sendmessage" name="send" value="Send">
     </form>
     <div>
-       <!-- add  optiot switch server-->
+      <!-- add  optiot switch server-->
       Server:
       <select id="selectserver">
          <!-- add server locations-->
         <option value="HRSF78">HRSF78</option>
         <option value="HRSF77">HRSF77</option>
       </select>
-       <!-- add room selector-->
+      <!-- add room selector-->
       Room:
-       <select id="selectroom">
+      <select id="roomSelect">
           <!-- add send button -->
         <option value="Lobby">Lobby</option>
         <option value="Funny">Funny</option>
@@ -58,19 +58,25 @@
         <option value="XSS">XSS</option>
       </select>
     </div>
-     <!-- add friends -->
-    <div class="friends" id="friends">
+    <!-- add friends -->
+    <div class="friend" id="friends">
       <h5>Friends List</h5>
     </div>
-     <!-- add top users -->
+    <!-- add top users -->
     <div class="topusers" id="topusers">
       <h5>Top Users</h5>
     </div>
   </div>
-   <!-- add display chat messages -->
-  <div id="chats">
+  <!-- add display chat messages -->
+  <div id="messagearea">
     <h2>Chat Room Messages</h2>
+    <div id="chats">
+
+    </div>
   </div>
+  <script>
+    this.app.init();
+  </script>
 </body>
 
 </html>
